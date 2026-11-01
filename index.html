@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Geography Water Quiz · S1 Book 4</title>
+<style>
+:root{
+  --ink:#0b3a4a; --card:#f0fbfd; --good:#0b9b6b; --bad:#c92a2a; --gold:#0ea5a0;
+  --sky:#e0f7fa; --deep:#064e5a; --wave:#0891b2; --foam:#ecfeff;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;min-height:100%;font-family:"Segoe UI","Helvetica Neue",Arial,"Noto Sans",system-ui,sans-serif;
+  background:
+    radial-gradient(ellipse at 15% 10%,rgba(34,211,238,.35),transparent 45%),
+    radial-gradient(ellipse at 85% 90%,rgba(16,185,129,.28),transparent 50%),
+    linear-gradient(180deg,#022c36 0%,#0e7490 35%,#115e59 70%,#042f2e 100%);
+  color:#ecfeff;overscroll-behavior:none}
+body{min-height:100dvh;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+header{max-width:1100px;margin:0 auto;padding:14px 16px 0}
+header h1{margin:0;font-size:clamp(20px,5.2vw,30px);letter-spacing:.03em;text-shadow:0 3px 0 rgba(0,0,0,.3),0 8px 20px rgba(0,0,0,.3);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+header h1 .badge{font-size:12px;background:linear-gradient(180deg,#a5f3fc,#22d3ee);color:#164e63;padding:4px 10px;border-radius:999px;border:2px solid #67e8f9;box-shadow:0 3px 0 #0e7490;font-weight:800}
+header p{margin:8px 0 0;font-size:14px;line-height:1.55;color:#cffafe;max-width:900px;text-shadow:0 1px 2px rgba(0,0,0,.3)}
+.topbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:12px}
+.chip{background:rgba(8,145,178,.28);backdrop-filter:blur(6px);border:2px solid rgba(165,243,252,.45);border-radius:999px;padding:8px 14px;font-weight:800;font-size:13px;box-shadow:0 3px 0 rgba(0,0,0,.2)}
+#home{max-width:1100px;margin:0 auto;padding:12px 16px 48px}
+.hero{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin:8px 0 16px;padding:14px 16px;border-radius:20px;
+  background:linear-gradient(135deg,rgba(165,243,252,.25),rgba(16,185,129,.2));
+  border:3px solid rgba(165,243,252,.5);box-shadow:0 10px 0 rgba(0,0,0,.18),0 18px 40px rgba(0,0,0,.22)}
+.mascot{width:72px;height:72px;font-size:56px;line-height:1;filter:drop-shadow(0 8px 12px rgba(0,0,0,.3));animation:bob 2.2s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+.hero h2{margin:0 0 4px;font-size:clamp(17px,4vw,22px);text-shadow:0 2px 0 rgba(0,0,0,.25)}
+.hero p{margin:0;font-size:13.5px;line-height:1.5;color:#ecfeff}
+.nick-box{margin:0 0 16px;padding:12px 14px;border-radius:16px;background:rgba(2,44,54,.45);border:2px solid rgba(103,232,249,.4)}
+.nick-box label{font-weight:800;font-size:13px;display:block;margin-bottom:6px}
+.nick-box input{width:100%;max-width:280px;font-size:16px;padding:10px 12px;border-radius:12px;border:2px solid #22d3ee;font-family:inherit;font-weight:700;color:#0f172a}
+.mode-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin:0 0 18px}
+.mode-card,.ch-card,.lv-btn{border:none;cursor:pointer;touch-action:manipulation;font-family:inherit;text-align:left;padding:16px 14px;border-radius:18px;color:#fff;font-weight:900;
+  box-shadow:0 8px 0 rgba(0,0,0,.25),0 14px 28px rgba(0,0,0,.2);transition:transform .12s,box-shadow .12s;min-height:100px;
+  background:linear-gradient(165deg,rgba(165,243,252,.3),rgba(2,44,54,.35));border:3px solid rgba(165,243,252,.5)}
+.mode-card:active,.ch-card:active,.lv-btn:active{transform:translateY(4px);box-shadow:0 3px 0 rgba(0,0,0,.25)}
+.mode-card .emo,.ch-card .emo{font-size:28px;display:block;margin-bottom:4px}
+.mode-card .ttl,.ch-card .ttl{font-size:15px;text-shadow:0 2px 0 rgba(0,0,0,.25);line-height:1.35}
+.mode-card .meta,.ch-card .meta,.lv-btn .meta{margin-top:6px;font-size:12px;opacity:.92;font-weight:700;line-height:1.4}
+.ch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.ch-card .en{font-size:11px;font-weight:700;opacity:.88;margin-top:4px;line-height:1.35;color:#a5f3fc}
+.lv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-top:10px}
+.lv-btn{min-height:90px;text-align:center}
+.lv-btn .ttl{font-size:17px}
+.back-row{margin:0 0 12px}
+.back-row button,.panel-top button,button.nav{font-family:inherit;font-weight:800;cursor:pointer;touch-action:manipulation;border-radius:14px;border:2px solid #a5f3fc;background:linear-gradient(180deg,#ecfeff,#67e8f9);color:#164e63;padding:10px 14px;font-size:14px;box-shadow:0 3px 0 #0e7490}
+#panel{display:none;position:fixed;inset:0;z-index:40;background:rgba(2,26,34,.62);backdrop-filter:blur(3px);align-items:flex-start;justify-content:center;padding:8px;overflow-y:auto;-webkit-overflow-scrolling:touch}
+#panel.show{display:flex;animation:fadeIn .2s ease}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.card{width:100%;max-width:720px;margin:4px auto 20px;background:linear-gradient(180deg,#f0fdfa,#e0f2fe);color:var(--ink);border-radius:22px;padding:14px 14px 18px;position:relative;box-shadow:0 16px 0 rgba(0,0,0,.18),0 28px 60px rgba(0,0,0,.35);border:3px solid #ecfeff;animation:cardIn .32s cubic-bezier(.2,.9,.3,1);max-height:min(92dvh,900px);overflow-y:auto}
+@keyframes cardIn{from{transform:translateY(18px) scale(.96);opacity:0}to{transform:none;opacity:1}}
+.card::before{content:"";position:absolute;left:12px;right:12px;top:8px;height:6px;border-radius:999px;background:linear-gradient(90deg,#22d3ee,#14b8a6,#38bdf8,#0ea5e9,#2dd4bf)}
+.panel-top{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 8px;align-items:center}
+.panel-top button:active{transform:translateY(2px);box-shadow:0 1px 0 #0e7490}
+#ptitle{margin:4px 0 6px;font-size:clamp(16px,4vw,20px);color:#134e4a}
+.subline{font-size:12.5px;color:#0f766e;font-weight:700;margin-bottom:8px}
+.score-pill{display:inline-flex;gap:8px;flex-wrap:wrap;margin:4px 0 8px}
+.score-pill span{background:#cffafe;border:2px solid #22d3ee;color:#155e75;font-weight:900;font-size:12px;padding:4px 10px;border-radius:999px}
+.task-card{margin:6px 0 10px;padding:12px 14px;border-radius:16px;background:linear-gradient(180deg,#fff,#f0fdfa);border:3px solid #14b8a6;box-shadow:0 4px 0 #0f766e}
+.task-card .mission{font-size:12px;font-weight:900;color:#0e7490;letter-spacing:.04em;margin-bottom:4px}
+.task-card .q{font-size:clamp(15px,4vw,18px);line-height:1.45;font-weight:900;margin:0;color:var(--ink)}
+.sec-tag{display:inline-block;font-size:11px;font-weight:800;padding:3px 8px;border-radius:999px;margin-right:6px;background:#cffafe;color:#155e75;border:1px solid #22d3ee}
+.kind-tag{display:inline-block;font-size:11px;font-weight:800;padding:3px 8px;border-radius:999px;background:#d1fae5;color:#065f46;border:1px solid #10b981}
+.opt{display:block;width:100%;text-align:left;margin:8px 0 0;padding:14px 14px;font-size:15px;font-weight:800;font-family:inherit;border-radius:14px;border:3px solid #67e8f9;background:linear-gradient(180deg,#fff,#ecfeff);color:var(--ink);cursor:pointer;touch-action:manipulation;box-shadow:0 4px 0 #0e7490}
+.opt:active{transform:translateY(2px);box-shadow:0 1px 0 #0e7490}
+.opt.picked{outline:3px solid #14b8a6}
+.opt.good{background:linear-gradient(180deg,#d3f9d8,#8ce99a)!important;border-color:#2f9e44;box-shadow:0 4px 0 #2f9e44}
+.opt.bad{background:linear-gradient(180deg,#ffe3e3,#ffa8a8)!important;border-color:#c92a2a;box-shadow:0 4px 0 #c92a2a}
+.opt:disabled{opacity:.75;cursor:not-allowed}
+.input-row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.input-row input{flex:1 1 160px;font-size:17px;padding:12px 14px;border-radius:12px;border:3px solid #14b8a6;font-family:inherit;font-weight:700;color:var(--ink)}
+button.go{display:block;width:100%;text-align:center;margin:10px 0 0;padding:14px;font-size:17px;border:3px solid #0e7490;background:linear-gradient(180deg,#5eead4,#14b8a6);color:#042f2e;box-shadow:0 5px 0 #0f766e;font-family:inherit;font-weight:900;cursor:pointer;touch-action:manipulation;border-radius:14px}
+button.go:active{transform:translateY(3px);box-shadow:0 1px 0 #0f766e}
+button:disabled{opacity:.55;cursor:not-allowed}
+#why{min-height:22px;font-weight:800;color:#134e4a;margin-top:8px;font-size:14px}
+#fx{pointer-events:none;position:absolute;inset:0;overflow:hidden;z-index:5}
+#fx .bit{position:absolute;top:-16px;font-size:22px;animation:confetti 1.4s ease-out forwards;opacity:0}
+@keyframes confetti{0%{opacity:0;transform:translateY(0) rotate(0)}15%{opacity:1}100%{opacity:0;transform:translateY(120px) rotate(240deg)}}
+.praise{pointer-events:none;position:absolute;left:50%;top:8%;transform:translateX(-50%) scale(.7);z-index:8;text-align:center;min-width:55%;animation:praisePop 1.7s cubic-bezier(.2,1.2,.3,1) forwards;opacity:0}
+.praise .emoji{display:block;font-size:clamp(34px,9vw,52px);filter:drop-shadow(0 6px 10px rgba(0,0,0,.25))}
+.praise .text{display:inline-block;background:linear-gradient(180deg,#cffafe,#22d3ee);color:#164e63;font-weight:900;font-size:clamp(16px,4vw,24px);padding:10px 18px;border-radius:999px;border:3px solid #67e8f9;box-shadow:0 7px 0 #0e7490}
+@keyframes praisePop{0%{opacity:0;transform:translateX(-50%) scale(.5)}18%{opacity:1;transform:translateX(-50%) scale(1.06)}70%{opacity:1}100%{opacity:0;transform:translateX(-50%) translateY(-10px) scale(.95)}}
+.card.celeb{box-shadow:0 0 0 4px rgba(20,184,166,.55),0 16px 0 rgba(0,0,0,.18),0 28px 60px rgba(0,0,0,.35)}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+.report-sum{margin:8px 0;padding:12px;border-radius:14px;background:linear-gradient(180deg,#e6fcf5,#c3fae8);border:2px solid #0b9b6b;font-weight:900;color:#134e4a}
+.report-encourage{margin:6px 0 12px;font-weight:900;color:#0f766e;font-size:15px}
+.report-banner{margin:8px 0;padding:10px 12px;border-radius:12px;background:#cffafe;border:2px solid #0891b2;font-weight:900;color:#155e75}
+.report-item{margin:8px 0;padding:10px 12px;border-radius:12px;background:#f8fffe;border:2px solid #a5f3fc;font-size:13.5px;line-height:1.45;color:#134e4a}
+.report-item.ok{border-color:#8ce99a;background:#ebfbee}
+.report-item.ng{border-color:#ffa8a8;background:#fff5f5}
+.report-note{font-size:12.5px;color:#0f766e;font-weight:700;margin:8px 0}
+.analysis{margin:8px 0;padding:12px;border-radius:14px;background:linear-gradient(180deg,#ecfeff,#e0f2fe);border:2px solid #38bdf8;color:#0c4a6e;font-size:13.5px;line-height:1.5;font-weight:700}
+.foot{text-align:center;font-size:12px;color:#a5f3fc;opacity:.85;padding:8px 16px 24px}
+.hidden{display:none!important}
+.prog{height:10px;background:rgba(2,44,54,.25);border-radius:999px;overflow:hidden;margin:8px 0 4px;border:1px solid rgba(103,232,249,.4)}
+.prog>i{display:block;height:100%;background:linear-gradient(90deg,#2dd4bf,#22d3ee);width:0;transition:width .25s}
+@media (prefers-reduced-motion:reduce){.mascot,#fx,.praise{animation:none!important}}
+
+#gate{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:16px;
+  background:rgba(2,26,34,.88);backdrop-filter:blur(8px)}
+#gate.pass-ok{display:none!important}
+.gate-card{width:100%;max-width:380px;padding:22px 20px 20px;border-radius:22px;
+  background:linear-gradient(180deg,#f0fdfa,#e0f2fe);color:#0b3a4a;border:3px solid #ecfeff;
+  box-shadow:0 16px 0 rgba(0,0,0,.18),0 28px 60px rgba(0,0,0,.35);text-align:center}
+.gate-card h2{margin:0 0 6px;font-size:22px;color:#134e4a}
+.gate-card .hint{margin:0 0 14px;font-size:13.5px;font-weight:700;color:#0f766e}
+.gate-card input{width:100%;font-size:18px;padding:12px 14px;border-radius:12px;border:3px solid #14b8a6;
+  font-family:inherit;font-weight:700;color:#0f172a;text-align:center;letter-spacing:.12em}
+.gate-card button.go{margin-top:12px}
+#gateErr{min-height:22px;margin-top:10px;font-weight:800;font-size:14px;color:#c92a2a}
+</style>
+</head>
+<body>
+
+<div id="gate" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
+  <div class="gate-card">
+    <h2 id="gateTitle">Password</h2>
+    <p class="hint">Enter password to start</p>
+    <input id="gatePass" type="password" autocomplete="off" maxlength="32" placeholder="Password" aria-label="Password">
+    <button type="button" class="go" id="gateEnter">Enter</button>
+    <div id="gateErr" aria-live="polite"></div>
+  </div>
+</div>
+<header>
+  <h1>💧 Geography Water Quiz <span class="badge">S1 · Book 4 · The trouble of water</span></h1>
+  <p>Based on Oxford <em>Junior Exploring Geography</em> (3rd ed.) Book 4. One game covers seven chapters, three levels each (easy → hard), with multiple-choice and fill-in questions. Points only for a correct first try; wrong answers must be fixed before the next question. End screen shows score, analysis and answer review. Optional player code — do not use a real name.</p>
+  <div class="topbar">
+    <span class="chip" id="hudMode">Mode: Home</span>
+    <span class="chip" id="hudQ">Bank: 189 questions</span>
+    <span class="chip" id="hudNick">Code: Guest</span>
+  </div>
+</header>
+<main id="home"></main>
+<p class="foot">Works offline · No real names · gameId=s1-geo-water-quiz · Oxford Junior Exploring Geography Book 4 · 7 chapters in one</p>
+<div id="panel" role="dialog" aria-modal="true"><div class="card" id="card"><div id="fx"></div>
+  <div class="panel-top" id="ptop">
+    <button type="button" id="btnBack">Back</button>
+    <button type="button" id="btnSettle" style="display:none">Finish early</button>
+  </div>
+  <h2 id="ptitle"></h2>
+  <div class="subline" id="where"></div>
+  <div class="score-pill"><span id="score">Score 0</span><span id="scoreHint"></span><span id="timerChip">Time 0:00</span></div>
+  <div class="prog" id="progBar" aria-hidden="true"><i id="progFill"></i></div>
+  <div id="q"></div>
+  <div id="opts"></div>
+  <div id="why"></div>
+  <button type="button" class="go" id="next" style="display:none">Next</button>
+</div></div>
+<script>
+const GAME_ID = "s1-geo-water-quiz";
+const STORE_KEY = "s1GeoWaterQuiz_v1";
+const CHAPTERS = [{"id":"ch1","titleZh":"Is there enough water for the whole world?","titleEn":"Is there enough water for the whole world?","emoji":"🌍","levels":[[{"kind":"mc","sec":"Global water distribution","q":"Most of the water on Earth's surface is which type?","opts":["Freshwater rivers and lakes","Seawater (salt water)","Glacial meltwater","Rain clouds"],"ans":1,"hint":"About 97% is seawater"},{"kind":"input","sec":"Global water distribution","q":"About what percent of Earth's water is seawater? (number, e.g. 97)","ans":"97","accept":["97","97%","about 97"],"hint":""},{"kind":"input","sec":"Global water distribution","q":"Seawater contains salt and is not suitable for drinking. It is called _____ water.","ans":"salt","accept":["salt","salt water","saltwater","saline","saline water"],"hint":""},{"kind":"mc","sec":"Freshwater storage","q":"Where is most of Earth's freshwater mainly locked?","opts":["Only in clouds","Polar / mountain ice and snow, and groundwater","All in the Yangtze River","Only in rain"],"ans":1,"hint":""},{"kind":"input","sec":"Water shortage","q":"Not having enough clean, usable freshwater for daily needs is called water _____.","ans":"shortage","accept":["shortage","scarcity","water shortage","water scarcity"],"hint":""},{"kind":"input","sec":"Usable freshwater","q":"Convenient freshwater mainly includes rivers, lakes and shallow _____ (one word).","ans":"groundwater","accept":["groundwater","ground water"],"hint":""},{"kind":"input","sec":"Threats","q":"Besides pollution, what kind of change makes droughts and storms more extreme? (climate _____)","ans":"climate","accept":["climate","climate change"],"hint":""},{"kind":"input","sec":"Global water distribution","q":"About 97% of Earth's water is seawater. Because it contains salt, it is also called _____ water.","ans":"salt","accept":["salt","salt water","saltwater","saline"],"hint":""}],[{"kind":"mc","sec":"Understanding distribution","q":"Why does 'Earth has lots of water' NOT mean everyone has enough usable water?","opts":["Because all water is in Hong Kong","Most is seawater; usable freshwater is scarce and unevenly distributed","Because water cannot cycle","Because there is no groundwater"],"ans":1,"hint":""},{"kind":"mc","sec":"Water footprint","q":"A rising 'water footprint' roughly means?","opts":["Footprints get larger","Humans are using / consuming more water","Sea level is falling","Glaciers are growing"],"ans":1,"hint":""},{"kind":"input","sec":"Freshwater forms","q":"Solid freshwater locked at the poles and in mountains is mainly _____ (ice / glacier).","ans":"ice","accept":["ice","snow","glacier","glaciers","ice and snow"],"hint":""},{"kind":"mc","sec":"Impacts of shortage","q":"Water shortage most directly affects which parts of daily life?","opts":["Only internet speed","Drinking water, sanitation and agriculture","Only space exploration","Only the music industry"],"ans":1,"hint":""},{"kind":"mc","sec":"Uneven distribution","q":"Uneven distribution of usable freshwater means?","opts":["Everyone gets exactly the same amount","Some places have enough rain; others face long droughts","Seawater becomes freshwater","All rivers dry up at once"],"ans":1,"hint":""},{"kind":"input","sec":"Key threat","q":"The global process that makes droughts and storms more extreme is called climate _____.","ans":"climate change","accept":["climate change","global warming"],"hint":""},{"kind":"mc","sec":"Concept check","q":"Which statement is most correct?","opts":["Shortage = Earth has no water at all","Shortage = not enough clean usable freshwater for daily needs","Shortage = only oceans, no land","Shortage = no water only in winter"],"ans":1,"hint":""},{"kind":"mc","sec":"Freshwater share","q":"Convenient river and lake freshwater, compared with all Earth's water, is?","opts":["Most of it","Only a very small share","Exactly half","More than seawater"],"ans":1,"hint":""},{"kind":"input","sec":"Usable freshwater","q":"Rivers, lakes and shallow groundwater are convenient forms of _____ water.","ans":"fresh","accept":["fresh","freshwater","fresh water"],"hint":""},{"kind":"input","sec":"Water footprint","q":"The concept describing how much water humans use is called the water _____.","ans":"footprint","accept":["footprint","water footprint"],"hint":""}],[{"kind":"mc","sec":"Applied analysis","q":"A river is heavily polluted by factory waste. Even if water remains, why may the area still face 'water shortage'?","opts":["Because the water turned to ice","Because the water is no longer clean and usable","Because seawater intrusion always happens","Because population must fall"],"ans":1,"hint":""},{"kind":"mc","sec":"Synthesis","q":"Which set of factors most raises global water-shortage pressure together?","opts":["Rising water footprint, pollution, climate change","Afforestation, saving water, recycling","More snow, expanding wetlands","Reservoirs and drip irrigation"],"ans":0,"hint":""},{"kind":"input","sec":"Key figure","q":"Seawater is about what percent of Earth's water resources? (number)","ans":"97","accept":["97","about 97","97%"],"hint":""},{"kind":"mc","sec":"Scenario","q":"A desert country by the sea still faces water shortage mainly because?","opts":["Coasts never have clouds","Nearby water is mostly seawater; freshwater is scarce and costly to obtain","Deserts have no sunlight","Population is always zero"],"ans":1,"hint":""},{"kind":"mc","sec":"Extension","q":"Melting lots of glaciers seems to add liquid freshwater short-term, but long-term problems may remain because?","opts":["Meltwater instantly becomes seawater","Climate and hydrology become unstable; extreme drought/flood risk may rise and distribution stays uneven","Melting glaciers remove all rivers","Freshwater disappears by itself"],"ans":1,"hint":""},{"kind":"input","sec":"Summary term","q":"Usable freshwater is scarce and varies by place. Which phrase describes this? (uneven _____)","ans":"uneven distribution","accept":["uneven distribution","uneven","unequal distribution","unequally distributed"],"hint":""},{"kind":"mc","sec":"Judgement","q":"Saving water can directly ease which pressure?","opts":["Water footprint / excessive demand","Earth's rotation speed","Moon phases","Plate tectonics"],"ans":0,"hint":""},{"kind":"mc","sec":"Analysis","q":"Why is shallow groundwater more often treated as 'usable freshwater' than deep polar ice cores?","opts":["Because it looks bluer","It is easier to develop and use for daily life and farming","Because it never contains minerals","Because it can never be polluted"],"ans":1,"hint":""},{"kind":"input","sec":"Threats","q":"Factory discharges that make river water unusable cause water _____.","ans":"pollution","accept":["pollution","water pollution"],"hint":""}]]},{"id":"ch2","titleZh":"Fresh water in China","titleEn":"Fresh water in China","emoji":"🗺️","levels":[[{"kind":"mc","sec":"Per capita resources","q":"China's total freshwater is not small, but per capita freshwater is low mainly because?","opts":["There are no rivers at all","A large population means less usable water per person","There is only seawater","It never rains"],"ans":1,"hint":""},{"kind":"input","sec":"Spatial pattern","q":"Which part of China has relatively more rain and river water? (south / north)","ans":"south","accept":["south","southern","southern China"],"hint":""},{"kind":"input","sec":"Major river","q":"A major Chinese river flowing west to east into the East China Sea is the _____ River.","ans":"Yangtze","accept":["Yangtze","Yangtze River","Chang Jiang","Changjiang"],"hint":""},{"kind":"input","sec":"Season","q":"In many parts of China, rainfall mainly comes in which season?","ans":"summer","accept":["summer","summer monsoon"],"hint":""},{"kind":"input","sec":"Mismatch","q":"Places with many people may not have much water. This is a population–water resource _____.","ans":"mismatch","accept":["mismatch","imbalance"],"hint":""},{"kind":"input","sec":"Northern river","q":"The famous northern river that often faces water stress is the _____ River.","ans":"Yellow","accept":["Yellow","Yellow River","Huang He","Huanghe"],"hint":""},{"kind":"input","sec":"Drought and flood","q":"China can have both drought and flood because water resources are uneven in _____ and season.","ans":"space","accept":["space","spatial","place","region","spatial distribution"],"hint":""},{"kind":"input","sec":"Spatial pattern","q":"The wetter part of China with more river water is called the _____.","ans":"south","accept":["south","southern","southern China"],"hint":""}],[{"kind":"mc","sec":"North–south difference","q":"Northern and northwestern China are relatively?","opts":["Drier and more prone to shortage","Rainy all year","Ten times richer in freshwater than the south","Without any rivers"],"ans":0,"hint":""},{"kind":"mc","sec":"Dry season","q":"In the drier winter–spring season, daily and farm water often relies on?","opts":["Seawater desalination alone is always enough","Reservoir storage and groundwater","Eating ice only","Stopping all water use"],"ans":1,"hint":""},{"kind":"input","sec":"Southern river","q":"A major southern river system flowing to the South China Sea is the _____ River.","ans":"Pearl","accept":["Pearl","Pearl River","Zhujiang"],"hint":""},{"kind":"mc","sec":"Total vs per capita","q":"'Large total, low per capita' means we must consider both?","opts":["Only land area","Total resources and population (per capita)","Only mountain height","Only coastline length"],"ans":1,"hint":""},{"kind":"mc","sec":"Cities","q":"Coastal megacities face high water pressure mainly because?","opts":["People and industry concentrate, but freshwater may not","Cities have no sewers","Coastal areas cannot build water plants","Seawater can irrigate all crops directly"],"ans":0,"hint":""},{"kind":"mc","sec":"Seasonal unevenness","q":"If almost all rain falls in a few summer months, a place may have?","opts":["Flooding in the wet season and shortage in the dry season","No drought or flood problems","Rivers that never change","Floods every winter"],"ans":0,"hint":""},{"kind":"input","sec":"Keyword","q":"When crowded places do not have matching water supply, this is called a _____.","ans":"mismatch","accept":["mismatch","imbalance"],"hint":""},{"kind":"mc","sec":"Synthesis","q":"China's water problems are not only 'enough or not', but also 'where and when'. This stresses?","opts":["Only ocean area","Spatial and seasonal (time) distribution","Only iceberg thickness","Removing all reservoirs"],"ans":1,"hint":""},{"kind":"input","sec":"Season","q":"The period with less rain in winter–spring is often called the _____ season.","ans":"dry","accept":["dry","dry season","drought season"],"hint":""},{"kind":"input","sec":"Per capita","q":"When population is large, the _____ freshwater resources per person tend to be low.","ans":"per capita","accept":["per capita","average","per-capita"],"hint":""}],[{"kind":"mc","sec":"Case analysis","q":"The North China Plain is densely populated and farmed but relatively short of water. This best shows?","opts":["Spatial mismatch of population and freshwater","North China never needs water","It has the world's highest rainfall","The Yellow River always has enough water"],"ans":0,"hint":""},{"kind":"mc","sec":"Comparison","q":"Compared with the Yellow River basin, the Yangtze basin generally has?","opts":["More abundant water and relatively less shortage pressure (local issues remain)","No flood risk at all","The world's highest per capita water","No agricultural water use"],"ans":0,"hint":""},{"kind":"input","sec":"Concept","q":"National freshwater total divided by population is called _____ freshwater resources.","ans":"per capita","accept":["per capita","per capita freshwater","per capita water resources","per-capita freshwater"],"hint":""},{"kind":"mc","sec":"Policy link","q":"Moving relatively abundant southern water north mainly tackles which unevenness?","opts":["Time (seasonal) unevenness","Spatial (north–south) unevenness","Seawater salinity unevenness","Daily temperature range"],"ans":1,"hint":""},{"kind":"mc","sec":"Dual risk","q":"Why is it not a contradiction that China faces both drought and flood?","opts":["Because statistics are wrong","Resources are uneven in space and time; different places/seasons can have opposite problems","Because there is no freshwater","Because there is only drought"],"ans":1,"hint":""},{"kind":"mc","sec":"Reasoning","q":"If a northern city expands industry fast but local rivers/lakes are limited, the short-term result is likely?","opts":["Tighter water supply and more reliance on transfers / groundwater","Automatic end of shortage","Rainfall becomes evenly spread all year","Sea level falls"],"ans":0,"hint":""},{"kind":"input","sec":"Seasonal winds","q":"The wind system bringing much summer rain to many parts of China is the _____.","ans":"monsoon","accept":["monsoon","summer monsoon"],"hint":""},{"kind":"mc","sec":"Evaluation","q":"Looking only at 'large total freshwater' while ignoring per capita and distribution may lead to?","opts":["Underestimating shortage and regional risk","Overestimating glacier area","Ending agriculture","Seawater turning fresh"],"ans":0,"hint":""},{"kind":"input","sec":"Mismatch","q":"North: many people, less water; south: more water. Fill: population–water resource _____.","ans":"mismatch","accept":["mismatch","imbalance"],"hint":""}]]},{"id":"ch3","titleZh":"Why is water shortage getting worse?","titleEn":"Why is water shortage getting worse?","emoji":"📉","levels":[[{"kind":"mc","sec":"Overview of causes","q":"Water shortage in China is getting worse mainly because?","opts":["Only one cause: it never rains","Rising demand and falling usable supply act together","All rivers were diverted to the sea","All water plants were closed"],"ans":1,"hint":""},{"kind":"input","sec":"Urbanisation","q":"Urbanisation makes cities need more clean _____ water.","ans":"drinking","accept":["drinking","domestic","fresh","tap"],"hint":""},{"kind":"input","sec":"Pollution effect","q":"When rivers, lakes and groundwater are polluted and unsafe to use, _____ freshwater decreases.","ans":"usable","accept":["usable","available","usable freshwater"],"hint":""},{"kind":"input","sec":"Industry","q":"Industry and economic growth are 'thirsty' — they need a lot of _____.","ans":"water","accept":["water"],"hint":""},{"kind":"mc","sec":"Groundwater","q":"Over-pumping groundwater may cause?","opts":["Falling water table, land subsidence, harder recovery","Mountains getting taller","Automatic desalination of seawater","Rainfall instantly doubling"],"ans":0,"hint":""},{"kind":"input","sec":"Climate","q":"The global factor making extreme droughts longer and stronger is climate _____.","ans":"climate change","accept":["climate change","global warming"],"hint":""},{"kind":"input","sec":"Agriculture","q":"Wasteful farm irrigation makes shortage _____ (worse / better).","ans":"worse","accept":["worse","more serious","aggravated"],"hint":""},{"kind":"input","sec":"Urbanisation","q":"Rural people moving to cities and cities growing is called _____.","ans":"urbanisation","accept":["urbanisation","urbanization","urban growth"],"hint":""}],[{"kind":"mc","sec":"Understanding","q":"'There is water but we dare not use it' best describes?","opts":["Pollution making water bodies unfit for use","Water at exactly 25°C","Water stored in a reservoir","A rainy day"],"ans":0,"hint":""},{"kind":"mc","sec":"Demand side","q":"Which factors push up water demand?","opts":["Population growth, urbanisation and industrial development","Wastewater treatment and saving water","Wetland restoration","Promoting drip irrigation"],"ans":0,"hint":""},{"kind":"input","sec":"Subsidence","q":"Over-pumping groundwater can make the ground sink. This is called land _____.","ans":"subsidence","accept":["subsidence","land subsidence","sinking"],"hint":""},{"kind":"mc","sec":"Supply side","q":"Which reduces usable water supply?","opts":["Pollution and over-extraction","Building water-saving facilities","Reusing reclaimed water","Raising water-use efficiency"],"ans":0,"hint":""},{"kind":"mc","sec":"Chain effect","q":"Urbanisation → water use ↑; if sewage treatment is weak →?","opts":["Pollution risk ↑ and usable freshwater under more pressure","Drought ends automatically","Rivers become clean for sure","Industrial water use drops to zero"],"ans":0,"hint":""},{"kind":"mc","sec":"Climate link","q":"How can climate change turn seasonal shortage into a longer problem?","opts":["By making droughts longer and stronger","By making daily rainfall identical","By removing summer","By freezing seawater into freshwater"],"ans":0,"hint":""},{"kind":"input","sec":"Keyword","q":"Dumping used water without proper treatment most easily causes water _____.","ans":"pollution","accept":["pollution","water pollution"],"hint":""},{"kind":"mc","sec":"Judgement","q":"Worsening shortage is 'not a single cause' means?","opts":["Many pressures act together (population, industry, pollution, over-pumping, climate, etc.)","Only pollution","Only climate","Only industry"],"ans":0,"hint":""},{"kind":"input","sec":"Industry","q":"Factories, energy and construction needing lots of water is industrial water _____.","ans":"use","accept":["use","demand","consumption"],"hint":""},{"kind":"input","sec":"Groundwater","q":"Over-pumping can make the groundwater level _____.","ans":"fall","accept":["fall","drop","decline","lower"],"hint":""}],[{"kind":"mc","sec":"Case analysis","q":"A northern city grows fast, factories increase, and river quality worsens. Shortage will?","opts":["Worsen clearly as demand rises and usable water falls","Improve automatically","Only affect the internet","Be unrelated to water"],"ans":0,"hint":""},{"kind":"mc","sec":"Policy thinking","q":"If we only add supply projects but ignore pollution and waste, in the long run?","opts":["It is hard to sustain because usability and efficiency stay unsolved","All problems are permanently solved","Climate change stops","Population disappears"],"ans":0,"hint":""},{"kind":"input","sec":"Extraction","q":"Pumping groundwater faster than natural recharge for a long time is called over-_____.","ans":"extraction","accept":["extraction","over-extraction","overpumping","over-pumping","overexploitation"],"hint":""},{"kind":"mc","sec":"Comparison","q":"When demand rises and usable supply falls at the same time, shortage pressure?","opts":["Worsens from both sides","Cancels out","Only affects shipping","Only affects temperature"],"ans":0,"hint":""},{"kind":"mc","sec":"Farming tech","q":"Compared with drip irrigation, traditional flood irrigation under shortage?","opts":["Wastes more water and worsens shortage","Always raises yields with no downside","Needs no water source","Can stop climate change"],"ans":0,"hint":""},{"kind":"mc","sec":"Urban systems","q":"Big cities need drinking water plus drainage and sewage treatment. Water management must?","opts":["Manage supply, demand and water quality together","Only look at bill colour","Only build taller towers","Ban rainfall"],"ans":0,"hint":""},{"kind":"input","sec":"Summary","q":"Population, urbanisation, industry, pollution, over-pumping and climate change acting together can be called multiple _____.","ans":"pressures","accept":["pressures","stresses","factors"],"hint":""},{"kind":"mc","sec":"Prediction","q":"If extreme droughts become more frequent while demand keeps rising, priority should be?","opts":["Saving water, treating pollution and protecting sources together","Opening more car washes only","Filling in all reservoirs","Stopping weather forecasts"],"ans":0,"hint":""},{"kind":"input","sec":"Synthesis","q":"Worsening shortage from many factors together can be described as combined _____.","ans":"pressures","accept":["pressures","stresses","impacts"],"hint":""}]]},{"id":"ch4","titleZh":"Drought","titleEn":"Drought","emoji":"☀️","levels":[[{"kind":"mc","sec":"Definition","q":"Problems brought by drought are best understood as?","opts":["Simply 'no rain today'","A chain of impacts on life, farming and society","Only affecting satellites","Only making the sea bluer"],"ans":1,"hint":""},{"kind":"input","sec":"Agriculture","q":"Drought can cut crop yields or even cause crop _____.","ans":"failure","accept":["failure","crop failure","loss"],"hint":""},{"kind":"input","sec":"Drinking water","q":"When reservoir levels fall, limiting water use is often called water _____.","ans":"rationing","accept":["rationing","restriction","restrictions","water rationing","water cuts"],"hint":""},{"kind":"input","sec":"Economy","q":"Drought may make hydropower generation _____ (increase / decrease).","ans":"decrease","accept":["decrease","fall","drop","reduce","decline"],"hint":""},{"kind":"input","sec":"Ecology","q":"Dried rivers and shrinking wetlands mainly threaten wild _____.","ans":"wildlife","accept":["wildlife","plants and animals","animals","ecosystems","biodiversity"],"hint":""},{"kind":"input","sec":"Weather","q":"Dry land more easily produces _____ storms that harm air quality and traffic.","ans":"dust","accept":["dust","sand","dust storm","sandstorm","dust storms"],"hint":""},{"kind":"input","sec":"Society","q":"Drought raises disaster-relief _____.","ans":"costs","accept":["costs","spending","expenses"],"hint":""},{"kind":"input","sec":"Agriculture","q":"When crops fail completely from lack of water, this is called crop _____.","ans":"failure","accept":["failure","crop failure"],"hint":""}],[{"kind":"mc","sec":"Five aspects","q":"Drought mainly affects which aspects?","opts":["Agriculture, drinking water, economy, ecology and society","Only entertainment","Only air ticket prices","Only font design"],"ans":0,"hint":""},{"kind":"mc","sec":"Food","q":"Crop failure and harm to livestock further affect?","opts":["Food supply and farmers' income","Only game skins","Wave height","The Moon's orbit"],"ans":0,"hint":""},{"kind":"input","sec":"Energy","q":"Generating electricity using flowing water to turn turbines is called _____ power.","ans":"hydroelectric","accept":["hydroelectric","hydropower","hydro","hydroelectric power","hydro power"],"hint":""},{"kind":"mc","sec":"Tourism","q":"How can drought affect local tourism?","opts":["Scenery/activities suffer; visitors and income may fall","Tourists always double","Unrelated to water","Planes fly faster"],"ans":0,"hint":""},{"kind":"mc","sec":"Air","q":"More dusty weather may also?","opts":["Hurt traffic and visibility","Widen rivers","End tides","Cancel winter"],"ans":0,"hint":""},{"kind":"mc","sec":"Vulnerable groups","q":"Drought hits vulnerable communities especially hard because?","opts":["They have fewer resources and coping capacity","They use the most water","They live on dam crests","Drought only hits shopping malls"],"ans":0,"hint":""},{"kind":"input","sec":"Hazard view","q":"Drought is treated as a disaster _____ that needs early preparation.","ans":"risk","accept":["risk","hazard","disaster risk"],"hint":""},{"kind":"mc","sec":"Chain","q":"Farm output falls → food supply under pressure → possible?","opts":["Price swings and pressure on livelihoods","Automatic bumper harvests","Free desalination","Climate cancelled"],"ans":0,"hint":""},{"kind":"input","sec":"Drinking water","q":"In drought, the water level in a reservoir often _____.","ans":"falls","accept":["falls","drops","declines","decreases"],"hint":""},{"kind":"input","sec":"Ecology","q":"Marshy areas around lakes that shrink in drought are called _____.","ans":"wetlands","accept":["wetlands","wetland","marshes"],"hint":""}],[{"kind":"mc","sec":"Integrated analysis","q":"Months of low rain, reservoirs below dead storage, factories cut output, cracked fields — drought here?","opts":["Hits farming, drinking water and the economy together","Only changes a weather-app icon","Is only a visual issue","Is unrelated to society"],"ans":0,"hint":""},{"kind":"mc","sec":"Preparedness","q":"Why is preparing early for drought better than rescue afterwards?","opts":["It reduces chain losses and relief costs","Drought can be cancelled by booking","Drinking water is unnecessary","Farming does not matter"],"ans":0,"hint":""},{"kind":"input","sec":"Ecological space","q":"Shrinking marshy lake margins are usually called _____.","ans":"wetlands","accept":["wetlands","wetland","marshes","marsh"],"hint":""},{"kind":"mc","sec":"Comparison","q":"The biggest difference between drought and a short sunny spell is?","opts":["Drought lasts longer and causes systemic impacts","Drought lasts only one hour","Sunny weather always causes crop failure","They are identical"],"ans":0,"hint":""},{"kind":"mc","sec":"Power mix","q":"If a place relies heavily on hydropower, severe drought means electricity supply?","opts":["Is more easily hit; other energy or saving power may be needed","Is completely unaffected","Automatically becomes tidal power","Voltage always rises"],"ans":0,"hint":""},{"kind":"mc","sec":"Social stability","q":"More conflicts over water show drought can affect?","opts":["Community relations and fair resource sharing","Only football results","Satellite numbers","Time-zone definitions"],"ans":0,"hint":""},{"kind":"input","sec":"Aspect count","q":"How many main aspects of drought impact are often summarised? (number)","ans":"5","accept":["5","five"],"hint":""},{"kind":"mc","sec":"Evaluation","q":"Is treating drought as 'only farmers' problem' enough?","opts":["No — it also affects drinking water, economy, ecology and society","Yes — others need not care","Yes — cities never short of water","Yes — ecology is unaffected"],"ans":0,"hint":""},{"kind":"input","sec":"Society","q":"Competing for water between communities in drought is a water _____.","ans":"conflict","accept":["conflict","dispute","competition"],"hint":""}]]},{"id":"ch5","titleZh":"Solving water shortage","titleEn":"Solving water shortage","emoji":"💧","levels":[[{"kind":"input","sec":"Overall strategy","q":"To tackle shortage and drought, develop new sources and also _____ (save / cut demand).","ans":"save","accept":["save","conserve","saving","conservation","cut demand"],"hint":""},{"kind":"input","sec":"Farm saving","q":"A water-saving irrigation method besides drip irrigation is _____ irrigation.","ans":"spray","accept":["spray","sprinkler","spray irrigation","sprinkler irrigation"],"hint":""},{"kind":"input","sec":"Water transfer","q":"The large project moving southern water north is called the South-to-North Water _____.","ans":"Diversion","accept":["Diversion","Transfer","South-to-North Water Diversion","South–North Water Transfer"],"hint":""},{"kind":"input","sec":"Reservoirs","q":"Reservoirs can _____ water in the wet season and release it in the dry season.","ans":"store","accept":["store","impound","retain","hold"],"hint":""},{"kind":"input","sec":"Reclaimed water","q":"Treated wastewater reused for suitable purposes is often called _____ water.","ans":"reclaimed","accept":["reclaimed","recycled","grey","reclaimed water","recycled water","greywater"],"hint":""},{"kind":"input","sec":"Coastal supply","q":"Removing salt from seawater to make usable water is called _____.","ans":"desalination","accept":["desalination","desalinisation","seawater desalination"],"hint":""},{"kind":"mc","sec":"Management","q":"A fair water-pricing system helps?","opts":["Encourage water saving","Encourage waste","Remove water meters","Legalise pollution"],"ans":0,"hint":""},{"kind":"input","sec":"Irrigation","q":"Spraying fine mist onto crops is called _____ irrigation.","ans":"spray","accept":["spray","sprinkler","spray irrigation","sprinkler irrigation"],"hint":""}],[{"kind":"mc","sec":"Engineering vs management","q":"Building reservoirs and diversion projects are mainly?","opts":["Engineering measures","Only slogans","Cancelling geography","Weather control"],"ans":0,"hint":""},{"kind":"mc","sec":"Recycling","q":"Industrial water recycling mainly belongs to?","opts":["Saving / raising water-use efficiency","Always pumping more groundwater","Increasing pollution","Giving up production"],"ans":0,"hint":""},{"kind":"input","sec":"Ecological measures","q":"Planting trees and grass to conserve water and soil are _____ measures.","ans":"ecological","accept":["ecological","eco","afforestation","soil and water conservation"],"hint":""},{"kind":"mc","sec":"Diversion aim","q":"The South-to-North Water Diversion mainly tackles?","opts":["Spatial mismatch (north–south unevenness)","Time travel only","Ending all floods","Increasing seawater area"],"ans":0,"hint":""},{"kind":"mc","sec":"Leakage","q":"Protecting sources and cutting pipe/canal leaks can?","opts":["Raise supply efficiency and cut waste","Make bills rise forever with no saving","Stop rainfall","Destroy wetlands"],"ans":0,"hint":""},{"kind":"mc","sec":"Households","q":"Household water-saving examples include?","opts":["Turning taps off, shorter showers, reusing laundry water to mop floors","Leaving taps on overnight","Washing cars with drinking water three times a day","Dumping rubbish into rivers"],"ans":0,"hint":""},{"kind":"input","sec":"Opposite of saving","q":"Developing or bringing in more water sources (opposite of cutting demand) is called _____.","ans":"increasing supply","accept":["increasing supply","open source","new sources","supply expansion"],"hint":""},{"kind":"mc","sec":"Synthesis","q":"Three key directions include?","opts":["Saving and efficiency, engineering storage/transfer, ecology and management together","Only praying for rain","Only importing bottled water","Banning agriculture"],"ans":0,"hint":""},{"kind":"input","sec":"Reservoirs","q":"A facility that stores water in the wet season is a _____.","ans":"reservoir","accept":["reservoir","dam"],"hint":""},{"kind":"input","sec":"Trees","q":"Planting many trees to conserve water sources is called _____.","ans":"afforestation","accept":["afforestation","reforestation","tree planting","planting trees"],"hint":""}],[{"kind":"mc","sec":"Evaluating diversion","q":"Large inter-basin transfers mainly demonstrate how to tackle?","opts":["Uneven spatial distribution","Cancelling seasons","Turning the north into rainforest for sure","Stopping urbanisation"],"ans":0,"hint":""},{"kind":"mc","sec":"Sustainability","q":"Why can 'new supply' not replace 'saving'?","opts":["Without saving and pollution control, new water may still be wasted or polluted","New supply is illegal","Reservoirs are useless","Seawater cannot exist"],"ans":0,"hint":""},{"kind":"input","sec":"Irrigation","q":"Sending water drop by drop near plant roots is _____ irrigation.","ans":"drip","accept":["drip","drip irrigation"],"hint":""},{"kind":"mc","sec":"Institutions","q":"Water pricing and quotas are?","opts":["Management measures that encourage saving and fair allocation","Only digging mud","Climate engineering","Plate movement"],"ans":0,"hint":""},{"kind":"mc","sec":"Desalination limits","q":"Desalination is often only a 'supplement' for coastal cities, implying?","opts":["Cost/energy limits; it can hardly solve national shortage alone","It can fully replace the Yangtze","Desalinated water is undrinkable so useless","It only works in deserts with no power"],"ans":0,"hint":""},{"kind":"mc","sec":"Combined strategy","q":"Reservoirs ease seasonal unevenness; transfers ease spatial unevenness. Together they can?","opts":["Tackle space–time distribution more fully","Cancel each other out","Only help entertainment","End drought worldwide for sure"],"ans":0,"hint":""},{"kind":"input","sec":"Reuse","q":"Treated water reused for flushing toilets or watering plants is _____ water.","ans":"reclaimed","accept":["reclaimed","recycled","grey","reclaimed water","recycled water"],"hint":""},{"kind":"mc","sec":"Analysis","q":"If a city desalinates a lot but also wastes and pollutes river water, the overall effect may be?","opts":["Weaker and unsustainable","Always the nation's best saver","Automatic wetland recovery","Better climate"],"ans":0,"hint":""},{"kind":"input","sec":"Strategy","q":"Developing new sources is increasing supply; cutting waste is water _____.","ans":"saving","accept":["saving","conservation","efficiency"],"hint":""}]]},{"id":"ch6","titleZh":"Flooding","titleEn":"Flooding","emoji":"🌊","levels":[[{"kind":"input","sec":"Setting","q":"Flooding in China often links to summer _____ and rapidly rising river levels.","ans":"rainstorms","accept":["rainstorms","storms","heavy rain","torrential rain","rainstorm"],"hint":""},{"kind":"mc","sec":"Direct loss","q":"Flooding most directly causes?","opts":["Loss of life and property","Automatic pay rises","Phone batteries charging","Thicker textbooks"],"ans":0,"hint":""},{"kind":"input","sec":"Agriculture","q":"When fields are submerged and crops fail, this agricultural disaster is a _____.","ans":"flood","accept":["flood","flooding","flood disaster"],"hint":""},{"kind":"input","sec":"Transport","q":"In floods, roads, metros and airports may be blocked or _____.","ans":"suspended","accept":["suspended","closed","stopped","shut"],"hint":""},{"kind":"input","sec":"Hygiene","q":"After floods, sewage and rubbish spread and raise the risk of _____ disease.","ans":"infectious","accept":["infectious","contagious","epidemic"],"hint":""},{"kind":"input","sec":"Facilities","q":"Bridges, embankments, power and communications are _____.","ans":"infrastructure","accept":["infrastructure","facilities"],"hint":""},{"kind":"input","sec":"Recovery","q":"After a disaster, farming and community recovery often take a _____ time (long / short).","ans":"long","accept":["long","longer"],"hint":""},{"kind":"input","sec":"Cause","q":"Very heavy rain in a short summer period is often called a _____.","ans":"rainstorm","accept":["rainstorm","storm","heavy rain","torrential rain"],"hint":""}],[{"kind":"mc","sec":"Five impacts","q":"Flooding mainly affects?","opts":["Life and property, farming, transport, hygiene and infrastructure","Only fashion trends","Only stock-ticker colours","Only font licences"],"ans":0,"hint":""},{"kind":"mc","sec":"Shops","q":"Urban flooding that closes shops is part of?","opts":["Property / economic loss","Successful ecological restoration","Successful water-saving education","Completion of the South-to-North diversion"],"ans":0,"hint":""},{"kind":"input","sec":"Disease","q":"Illnesses that spread more easily in dirty post-flood conditions are _____ diseases.","ans":"infectious","accept":["infectious","contagious","epidemic","infectious diseases"],"hint":""},{"kind":"mc","sec":"Soil","q":"Besides crop failure, flooded farmland may also?","opts":["Worsen soil conditions","Instantly suit all crops and triple yields","Raise fields into mountains","Stop rainfall"],"ans":0,"hint":""},{"kind":"mc","sec":"Public finance","q":"Repairing damaged embankments and roads pressures?","opts":["Public finance and community recovery resources","Lunar gravity","Only private game servers","Tidal friction"],"ans":0,"hint":""},{"kind":"mc","sec":"City operations","q":"Metro stoppages and road closures show flooding hits?","opts":["Normal city operations and economic activity","Only the taste of village well water","Satellite TV channel counts","School uniform colours"],"ans":0,"hint":""},{"kind":"input","sec":"Peak","q":"Destructive sudden rises in water level show that floods can arrive _____.","ans":"suddenly","accept":["suddenly","rapidly","violently","abruptly"],"hint":""},{"kind":"mc","sec":"Synthesis","q":"Why must flooding be taken seriously?","opts":["Wide damage, high recovery cost, threat to life","It only affects weather-app animations","It can be ignored","It only happens in textbooks"],"ans":0,"hint":""},{"kind":"input","sec":"Property","q":"Damaged homes and belongings are _____ losses from flooding.","ans":"property","accept":["property","economic"],"hint":""},{"kind":"input","sec":"Transport","q":"City metro lines in a flood may have to be _____.","ans":"suspended","accept":["suspended","stopped","closed"],"hint":""}],[{"kind":"mc","sec":"Case analysis","q":"Extreme rain floods an underground mall, closes a highway, and gut infections rise afterwards. This covers?","opts":["Property, transport and hygiene impacts together","Only a farm bumper harvest","Only more hydropower","Unrelated to flooding"],"ans":0,"hint":""},{"kind":"mc","sec":"Drought vs flood","q":"Drought and flooding are both water-related hazards; the difference is?","opts":["Too little / lasting shortage vs too much / sudden excess","They are identical","Floods only happen in deserts","Drought only happens on the seabed"],"ans":0,"hint":""},{"kind":"input","sec":"Defence works","q":"Long riverside structures built to hold back floodwater are _____.","ans":"embankments","accept":["embankments","levees","dykes","dikes","embankment","levee"],"hint":""},{"kind":"mc","sec":"Secondary hazard","q":"Post-flood infectious-disease risk is?","opts":["A secondary / knock-on impact that prolongs harm","Always unrelated to flooding","A success mark for saving water","Proof that climate improved"],"ans":0,"hint":""},{"kind":"mc","sec":"Economic pause","q":"Logistics chaos and closed shops show flooding can?","opts":["Pause economic activity quickly","Always grow the economy","Be fixed by more billboards only","Help every industry"],"ans":0,"hint":""},{"kind":"mc","sec":"Priority","q":"In a severe flood, rescue usually prioritises?","opts":["Protecting human life","Counting game scores first","Changing shop signs first","Raising ticket prices first"],"ans":0,"hint":""},{"kind":"input","sec":"Impact count","q":"About how many main impact areas of flooding are often summarised? (number)","ans":"5","accept":["5","five"],"hint":""},{"kind":"mc","sec":"Planning value","q":"Understanding multiple flood impacts helps society?","opts":["Value flood-control works, warnings and land-use planning","Cancel geography learning","Build homes on riverbeds with no defence","Stop water-level monitoring"],"ans":0,"hint":""},{"kind":"input","sec":"Hygiene","q":"After floods, cleaning and _____ workloads are heavy.","ans":"disinfection","accept":["disinfection","sanitation","sterilisation","sterilization"],"hint":""}]]},{"id":"ch7","titleZh":"Flood prevention","titleEn":"Flood prevention","emoji":"🛡️","levels":[[{"kind":"mc","sec":"Overall principle","q":"Controlling floods should?","opts":["Combine engineering and non-engineering measures","Rely on prayer and ignore warnings","Fill all lakes","Ban weather forecasts"],"ans":0,"hint":""},{"kind":"input","sec":"Engineering","q":"Dams and reservoirs can temporarily store excess river water and reduce downstream _____.","ans":"pressure","accept":["pressure","risk","load"],"hint":""},{"kind":"input","sec":"Natural sponge","q":"Lakes and wetlands that absorb floods and slow peak flow are called natural _____.","ans":"sponges","accept":["sponges","sponge","natural sponges","natural sponge"],"hint":""},{"kind":"input","sec":"Warning","q":"Weather forecasts, water-level monitoring and timely alerts are _____ systems.","ans":"warning","accept":["warning","early warning","alert","forecast"],"hint":""},{"kind":"input","sec":"Channels","q":"River training and dredging help drainage flow more _____.","ans":"smoothly","accept":["smoothly","freely","easily"],"hint":""},{"kind":"input","sec":"Famous project","q":"A famous multi-purpose water project (flood control, power, shipping) is the Three _____.","ans":"Gorges","accept":["Gorges","Three Gorges","Three Gorges Dam","Three Gorges Project"],"hint":""},{"kind":"input","sec":"Planning","q":"Flood control should avoid building freely on high-risk flood _____.","ans":"plains","accept":["plains","plain","floodplains","flood plains"],"hint":""},{"kind":"input","sec":"Engineering","q":"A large structure that holds back a river and can help flood control is a _____.","ans":"dam","accept":["dam","reservoir"],"hint":""}],[{"kind":"mc","sec":"Hard and soft","q":"Dams, reservoirs and channels are 'hardware'; wetlands, warnings, planning and community readiness are?","opts":["Software (non-engineering measures)","Useless decoration","Only adverts","Only music"],"ans":0,"hint":""},{"kind":"mc","sec":"Detention","q":"A flood detention / diversion area mainly?","opts":["Temporarily stores or diverts floodwater to protect more important places","Is advertised as forever risk-free housing","Increases wildfires","Creates drought"],"ans":0,"hint":""},{"kind":"input","sec":"Measure type","q":"Warning systems and emergency evacuation are _____ measures.","ans":"non-engineering","accept":["non-engineering","non engineering","soft","software"],"hint":""},{"kind":"mc","sec":"Wetland value","q":"Protecting and restoring wetlands and lakes helps flood control by?","opts":["Naturally storing and regulating floods","Making floods higher","Turning water oily for sure","Replacing all warnings"],"ans":0,"hint":""},{"kind":"mc","sec":"Community","q":"Complete flood control also needs?","opts":["Day-to-day management and community preparedness","Building once and never checking again","Banning evacuation drills","Closing monitoring stations"],"ans":0,"hint":""},{"kind":"mc","sec":"Dredging","q":"Dredging means?","opts":["Clearing river silt to improve flow capacity","Removing embankments","Permanently pumping a river dry","Building houses on the riverbed"],"ans":0,"hint":""},{"kind":"input","sec":"Floodway","q":"A path kept clear so floodwater can pass safely is a flood _____.","ans":"channel","accept":["channel","way","floodway","flood channel","discharge channel"],"hint":""},{"kind":"mc","sec":"Synthesis","q":"Complete flood control needs?","opts":["Hardware and software together","Only one of them","Cancelling geography","Only taller buildings"],"ans":0,"hint":""},{"kind":"input","sec":"Warning","q":"Telling residents to leave danger zones before a flood is emergency _____.","ans":"evacuation","accept":["evacuation","evacuation","withdrawal"],"hint":""},{"kind":"input","sec":"Channels","q":"Clearing riverbed silt to improve drainage is called _____.","ans":"dredging","accept":["dredging"],"hint":""}],[{"kind":"mc","sec":"Evaluating Three Gorges","q":"Large projects like the Three Gorges (flood control, power, shipping) show that big water works?","opts":["Can bring combined benefits but still need management and other measures","Can replace warnings and community prep","Have no costs or limits","Are only for tourism"],"ans":0,"hint":""},{"kind":"mc","sec":"Land policy","q":"Building many homes on floodplains without enough flood defence risks?","opts":["Much greater flood loss and casualties","Automatic safety","Floods avoiding buildings","Unlimited free insurance"],"ans":0,"hint":""},{"kind":"input","sec":"Engineering class","q":"Dams, reservoirs, detention areas and river training are called _____ measures.","ans":"engineering","accept":["engineering","hard","structural"],"hint":""},{"kind":"mc","sec":"Life-saving warnings","q":"Why are warnings and evacuation called 'critical'?","opts":["They buy time to save lives and cut losses","They permanently replace embankments","They are only for media","They stop rainstorms"],"ans":0,"hint":""},{"kind":"mc","sec":"Systems view","q":"Only raising embankments while destroying upstream wetlands and skipping warnings may?","opts":["Leave holes in the flood-control system; risk stays high","Give absolute zero risk","Stabilise climate","Make desalination free"],"ans":0,"hint":""},{"kind":"mc","sec":"Peak flow","q":"'Slowing peak flow' in wetlands means?","opts":["The short-term flood peak is moderated, easing downstream pressure","Flow becomes forever zero","Rainfall doubles","Rivers disappear"],"ans":0,"hint":""},{"kind":"input","sec":"Planning term","q":"Deciding where housing is allowed and where flood green space is kept is land-use _____.","ans":"planning","accept":["planning","land-use planning","land use planning"],"hint":""},{"kind":"mc","sec":"Complete package","q":"The closest 'complete flood control' mix is?","opts":["Dams/reservoirs/channels + wetland sponges + warning/evacuation + land planning + community prep","Only raising one embankment","Only one poster","Only personal swimming skill"],"ans":0,"hint":""},{"kind":"input","sec":"Hard and soft","q":"Dams and reservoirs are hardware; warnings and planning are _____.","ans":"software","accept":["software","soft measures","non-engineering"],"hint":""}]]}];
+
+/* ===== helpers ===== */
+function esc(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+function norm(s){
+  return String(s||"").trim().toLowerCase()
+    .replace(/\s+/g,"").replace(/[，。、；：！？""''（）()【】\[\]\.\,\!\?\:\;]/g,"")
+    .replace(/-/g,"");
+}
+function matchInput(raw, item){
+  const n = norm(raw);
+  if(!n) return false;
+  const list = [];
+  if(item.ans) list.push(item.ans);
+  (item.accept||[]).forEach(a=>list.push(a));
+  return list.some(a=>norm(a)===n || norm(a).includes(n) && n.length>=Math.min(2,norm(a).length) || n.includes(norm(a)) && norm(a).length>=2);
+}
+function correctText(item){
+  if(item.kind==="mc") return (item.opts&&item.opts[item.ans]!=null)?item.opts[item.ans]:String(item.ans);
+  return item.ans || (item.accept&&item.accept[0]) || "—";
+}
+function fmtTime(ms){
+  const s = Math.max(0, Math.floor(ms/1000));
+  const m = Math.floor(s/60), r = s%60;
+  return m+":"+String(r).padStart(2,"0");
+}
+function loadStore(){
+  try{
+    const o = JSON.parse(localStorage.getItem(STORE_KEY)||"{}");
+    return o && typeof o==="object" ? o : {};
+  }catch(e){ return {}; }
+}
+function saveStore(o){
+  try{ localStorage.setItem(STORE_KEY, JSON.stringify(o)); }catch(e){}
+}
+function getNick(){ return (loadStore().nick||"").trim(); }
+function setNick(n){
+  const st = loadStore(); st.nick = String(n||"").trim().slice(0,20); saveStore(st);
+  document.getElementById("hudNick").textContent = "Code: "+(st.nick||"Guest");
+}
+
+/* optional platform bridge (same pattern as other edu games) */
+window.P5Platform = window.P5Platform || (function(){
+  var STORE="p5EduPlatform_v1";
+  function report(partial){
+    try{
+      var raw=localStorage.getItem(STORE); var o=raw?JSON.parse(raw):{version:1,players:{}};
+      var code=(o.lastPlayerCode||"").toLowerCase(); if(!code||!o.players[code]) return;
+      var p=o.players[code]; p.results=p.results||[];
+      p.results.push(Object.assign({ts:Date.now(),id:"r"+Date.now().toString(36)}, partial));
+      localStorage.setItem(STORE, JSON.stringify(o));
+    }catch(e){}
+  }
+  return {report:report, hasPlayer:false, appendReturn:function(){}};
+})();
+
+/* ===== state ===== */
+let view = "home"; // home | chapter | levels
+let curCh = null;
+let mode = "chapter"; // chapter | combo
+let paper = null;
+let qi = 0, score = 0, totalPts = 0, locked = false;
+let log = [];
+let startAt = 0, timerId = null, elapsedMs = 0;
+let firstTry = true;
+let curMc = null;
+
+function stopTimer(){ if(timerId){ clearInterval(timerId); timerId=null; } }
+function startTimer(){
+  stopTimer(); startAt = Date.now(); elapsedMs = 0;
+  timerId = setInterval(()=>{
+    elapsedMs = Date.now()-startAt;
+    const el=document.getElementById("timerChip");
+    if(el) el.textContent = "Time "+fmtTime(elapsedMs);
+  }, 250);
+}
+function updateProg(){
+  const fill=document.getElementById("progFill");
+  if(!paper||!fill) return;
+  const pct = paper.questions.length ? Math.round((qi)/paper.questions.length*100) : 0;
+  fill.style.width = pct+"%";
+}
+
+function celebrate(){
+  const card=document.getElementById("card");
+  if(card){ card.classList.remove("celeb"); void card.offsetWidth; card.classList.add("celeb"); }
+  document.querySelectorAll(".praise").forEach(el=>el.remove());
+  const praises=[
+    {e:"💧",t:"Correct!"},{e:"🌊",t:"Awesome!"},{e:"🌟",t:"Brilliant!"},
+    {e:"👏",t:"Nice! Keep going!"},{e:"🏆",t:"Water expert!"},{e:"✨",t:"Yes! Right!"}
+  ];
+  const pick=praises[Math.floor(Math.random()*praises.length)];
+  const banner=document.createElement("div");
+  banner.className="praise";
+  banner.innerHTML='<span class="emoji">'+pick.e+'</span><span class="text">'+pick.t+'</span>';
+  if(card) card.appendChild(banner);
+  const fx=document.getElementById("fx");
+  if(fx){
+    fx.innerHTML="";
+    const bits=["💧","✨","🌊","⭐","💙","👏","🌿","🐟"];
+    for(let n=0;n<16;n++){
+      const s=document.createElement("span"); s.className="bit";
+      s.textContent=bits[n%bits.length];
+      s.style.left=(4+Math.random()*92)+"%";
+      s.style.animationDelay=(Math.random()*0.4)+"s";
+      s.style.fontSize=(16+Math.random()*18)+"px";
+      fx.appendChild(s);
+    }
+    setTimeout(()=>{ if(fx) fx.innerHTML=""; }, 1600);
+  }
+  setTimeout(()=>{ banner.remove(); if(card) card.classList.remove("celeb"); }, 1900);
+}
+
+function mixMc(item){
+  const labels=item.opts.slice();
+  const order=labels.map((_,i)=>i);
+  for(let i=order.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    const t=order[i]; order[i]=order[j]; order[j]=t;
+  }
+  return { labels:order.map(i=>labels[i]), correct:order.indexOf(item.ans) };
+}
+
+function countChapter(ch){
+  return ch.levels.reduce((a,lv)=>a+lv.length,0);
+}
+
+function renderHome(){
+  view="home"; curCh=null;
+  document.getElementById("hudMode").textContent="Mode: Home";
+  const nick=getNick();
+  document.getElementById("hudNick").textContent="Code: "+(nick||"Guest");
+  let html='<div class="hero"><div class="mascot">💧</div><div><h2>Seven-chapter water challenge (one game)</h2><p>Pick a chapter to practise, or try the mixed challenge. Each chapter: Level 1 easy → Level 3 hard. Score only counts first-try corrects.</p></div></div>';
+  html+='<div class="nick-box"><label for="nickIn">Player code (optional, saved locally — do not use a real name)</label>';
+  html+='<input id="nickIn" type="text" maxlength="20" placeholder="e.g. Drop01" value="'+esc(nick)+'">';
+  html+='</div>';
+  html+='<div class="mode-grid">';
+  html+='<button type="button" class="mode-card" id="btnChapters"><span class="emo">📚</span><span class="ttl">Chapter practice</span><div class="meta">Chapters 1–7 · three levels each</div></button>';
+  html+='<button type="button" class="mode-card" id="btnCombo"><span class="emo">🏆</span><span class="ttl">Mixed challenge</span><div class="meta">Mixed from 7 chapters · about 21 questions</div></button>';
+  html+='</div>';
+  html+='<h3 style="margin:8px 0 10px;font-size:15px">Jump to a chapter</h3><div class="ch-grid" id="chQuick"></div>';
+  document.getElementById("home").innerHTML=html;
+  document.getElementById("nickIn").addEventListener("change", e=>setNick(e.target.value));
+  document.getElementById("nickIn").addEventListener("blur", e=>setNick(e.target.value));
+  document.getElementById("btnChapters").onclick=()=>renderChapterList();
+  document.getElementById("btnCombo").onclick=()=>startCombo();
+  const grid=document.getElementById("chQuick");
+  CHAPTERS.forEach((ch,idx)=>{
+    const b=document.createElement("button");
+    b.type="button"; b.className="ch-card";
+    b.innerHTML='<span class="emo">'+ch.emoji+'</span><span class="ttl">Ch '+(idx+1)+'　'+esc(ch.titleEn)+'</span><div class="en">Book 4 · The trouble of water</div><div class="meta">'+countChapter(ch)+' questions · 3 levels</div>';
+    b.onclick=()=>renderLevels(ch, idx);
+    grid.appendChild(b);
+  });
+}
+
+function renderChapterList(){
+  view="chapter";
+  document.getElementById("hudMode").textContent="Mode: Chapter practice";
+  let html='<div class="back-row"><button type="button" id="backHome">← Back to home</button></div>';
+  html+='<div class="hero"><div class="mascot">📘</div><div><h2>Choose a chapter</h2><p>Each chapter has Level 1 (recall), Level 2 (understanding), Level 3 (apply / analyse).</p></div></div>';
+  html+='<div class="ch-grid" id="chList"></div>';
+  document.getElementById("home").innerHTML=html;
+  document.getElementById("backHome").onclick=()=>renderHome();
+  const grid=document.getElementById("chList");
+  CHAPTERS.forEach((ch,idx)=>{
+    const b=document.createElement("button");
+    b.type="button"; b.className="ch-card";
+    b.innerHTML='<span class="emo">'+ch.emoji+'</span><span class="ttl">Ch '+(idx+1)+'　'+esc(ch.titleEn)+'</span><div class="en">Book 4 · The trouble of water</div><div class="meta">'+countChapter(ch)+' Q · L1 '+ch.levels[0].length+' / L2 '+ch.levels[1].length+' / L3 '+ch.levels[2].length+'</div>';
+    b.onclick=()=>renderLevels(ch, idx);
+    grid.appendChild(b);
+  });
+}
+
+function renderLevels(ch, idx){
+  view="levels"; curCh=ch;
+  document.getElementById("hudMode").textContent="Chapter "+(idx+1);
+  let html='<div class="back-row"><button type="button" id="backCh">← Back to chapters</button></div>';
+  html+='<div class="hero"><div class="mascot">'+ch.emoji+'</div><div><h2>Ch '+(idx+1)+'　'+esc(ch.titleEn)+'</h2><p>Book 4 · The trouble of water</p></div></div>';
+  html+='<div class="lv-grid">';
+  const labels=["Level 1 · Easy (recall)","Level 2 · Medium (understanding)","Level 3 · Hard (apply / analyse)"];
+  const colors=["#22d3ee","#14b8a6","#0ea5e9"];
+  for(let i=0;i<3;i++){
+    html+='<button type="button" class="lv-btn" data-lv="'+i+'" style="border-color:'+colors[i]+'"><div class="ttl">'+labels[i]+'</div><div class="meta">'+ch.levels[i].length+' Q · MC + fill-in</div></button>';
+  }
+  html+='<button type="button" class="lv-btn" data-lv="all" style="border-color:#fbbf24"><div class="ttl">Full chapter challenge</div><div class="meta">All 3 levels · '+countChapter(ch)+' questions</div></button>';
+  html+='</div>';
+  document.getElementById("home").innerHTML=html;
+  document.getElementById("backCh").onclick=()=>renderChapterList();
+  document.querySelectorAll(".lv-btn").forEach(btn=>{
+    btn.onclick=()=>{
+      const lv=btn.getAttribute("data-lv");
+      if(lv==="all") startChapterAll(ch, idx);
+      else startLevel(ch, idx, parseInt(lv,10));
+    };
+  });
+}
+
+function shuffle(arr){
+  const a=arr.slice();
+  for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); const t=a[i]; a[i]=a[j]; a[j]=t; }
+  return a;
+}
+
+function startLevel(ch, idx, lv){
+  const qs = ch.levels[lv].map(q=>Object.assign({_ch:idx+1,_chTitle:ch.titleEn,_lv:lv+1}, q));
+  beginPaper({
+    name: "Ch "+(idx+1)+" · Level "+(lv+1),
+    unit: ch.titleEn,
+    en: ch.titleEn,
+    mode: "level",
+    questions: qs
+  });
+}
+
+function startChapterAll(ch, idx){
+  const qs=[];
+  ch.levels.forEach((lv,li)=>lv.forEach(q=>qs.push(Object.assign({_ch:idx+1,_chTitle:ch.titleEn,_lv:li+1},q))));
+  beginPaper({
+    name: "Ch "+(idx+1)+" · Full challenge",
+    unit: ch.titleEn,
+    en: ch.titleEn,
+    mode: "chapter-all",
+    questions: qs
+  });
+}
+
+function startCombo(){
+  // take 1 random from each level of each chapter ≈ 21, or sample 3 per chapter
+  let pool=[];
+  CHAPTERS.forEach((ch,idx)=>{
+    ch.levels.forEach((lv,li)=>{
+      const pick = shuffle(lv).slice(0,1).map(q=>Object.assign({_ch:idx+1,_chTitle:ch.titleEn,_lv:li+1},q));
+      pool=pool.concat(pick);
+    });
+  });
+  pool = shuffle(pool);
+  beginPaper({
+    name: "Mixed challenge (7 chapters)",
+    unit: "Book 4 highlights",
+    en: "The trouble of water · Mixed",
+    mode: "combo",
+    questions: pool
+  });
+}
+
+function beginPaper(p){
+  paper=p; qi=0; score=0; totalPts=p.questions.length; locked=false; log=[]; firstTry=true; curMc=null;
+  document.getElementById("score").textContent="Score 0";
+  document.getElementById("panel").classList.add("show");
+  document.getElementById("btnSettle").style.display="inline-block";
+  document.getElementById("btnBack").style.display="inline-block";
+  document.getElementById("next").style.display="none";
+  document.getElementById("hudMode").textContent="In progress: "+p.name;
+  startTimer();
+  showQ();
+}
+
+function closePanel(){
+  stopTimer();
+  document.getElementById("panel").classList.remove("show");
+  paper=null;
+}
+
+function showQ(){
+  locked=false; firstTry=true;
+  const item=paper.questions[qi];
+  document.getElementById("ptitle").textContent=paper.name+"　"+(qi+1)+"/"+paper.questions.length;
+  document.getElementById("where").textContent=(paper.en?paper.en+" · ":"")+(item._ch?("Ch "+item._ch):"")+(item._lv?(" · L"+item._lv):"");
+  const kindLab=item.kind==="input"?"Fill-in":"Multiple choice";
+  document.getElementById("scoreHint").textContent="【"+(item.sec||"")+" · "+kindLab+"】First-try points only · Total "+score+" / "+totalPts;
+  updateProg();
+  let qHtml='<div class="task-card"><div class="mission">';
+  if(item.sec) qHtml+='<span class="sec-tag">'+esc(item.sec)+'</span>';
+  qHtml+='<span class="kind-tag">'+kindLab+'</span></div>';
+  qHtml+='<p class="q">'+esc(item.q)+'</p></div>';
+  document.getElementById("q").innerHTML=qHtml;
+  document.getElementById("why").textContent="";
+  document.getElementById("next").style.display="none";
+  const box=document.getElementById("opts"); box.innerHTML="";
+  const card=document.getElementById("card"); if(card) card.scrollTop=0;
+  if(item.kind==="mc"){
+    curMc=mixMc(item);
+    curMc.labels.forEach((label,idx)=>{
+      const b=document.createElement("button");
+      b.className="opt"; b.type="button"; b.textContent=label;
+      b.onclick=()=>answerMc(idx,b);
+      box.appendChild(b);
+    });
+  } else {
+    curMc=null;
+    const row=document.createElement("div"); row.className="input-row";
+    const inp=document.createElement("input");
+    inp.type="text"; inp.id="fillAns"; inp.placeholder="Type your answer"; inp.autocomplete="off";
+    inp.setAttribute("enterkeyhint","done");
+    row.appendChild(inp); box.appendChild(row);
+    const go=document.createElement("button");
+    go.type="button"; go.className="go"; go.textContent="Submit";
+    go.onclick=()=>answerInput();
+    box.appendChild(go);
+    inp.addEventListener("keydown", e=>{ if(e.key==="Enter"){ e.preventDefault(); answerInput(); } });
+    setTimeout(()=>{ try{ inp.focus(); }catch(e){} }, 40);
+  }
+}
+
+function afterCorrect(userAns){
+  const item=paper.questions[qi];
+  const pts = firstTry ? 1 : 0;
+  if(firstTry){ score += pts; }
+  document.getElementById("score").textContent="Score "+score;
+  log.push({
+    no:qi+1, sec:item.sec||"", kind:item.kind, q:item.q,
+    ch:item._ch||"", lv:item._lv||"", chTitle:item._chTitle||"",
+    ok:firstTry, ptsGot:pts, ptsMax:1,
+    correct:correctText(item), userAns:userAns||"",
+    firstTry:firstTry
+  });
+  locked=true;
+  document.getElementById("why").textContent = firstTry
+    ? ("Correct! +"+pts+" point. Total "+score+" / "+totalPts+".")
+    : ("Fixed! First try was wrong — 0 points. Total "+score+" / "+totalPts+".");
+  if(firstTry) celebrate();
+  const last = qi+1 >= paper.questions.length;
+  const nxt=document.getElementById("next");
+  nxt.style.display="block";
+  nxt.textContent = last ? "See results" : "Next";
+  nxt.onclick=()=>goNext();
+}
+
+function answerMc(idx, btn){
+  if(locked || !paper) return;
+  const item=paper.questions[qi];
+  const ok = idx === curMc.correct;
+  document.querySelectorAll("#opts .opt").forEach(b=>b.classList.remove("picked"));
+  btn.classList.add("picked");
+  if(ok){
+    document.querySelectorAll("#opts .opt").forEach(b=>b.disabled=true);
+    btn.classList.add("good");
+    afterCorrect(curMc.labels[idx]);
+  } else {
+    btn.classList.add("bad");
+    btn.disabled=true;
+    firstTry=false;
+    document.getElementById("why").textContent="Not quite — try again. You must get it right before the next question. (No points for this one.)";
+    const card=document.getElementById("card");
+    if(card){ card.style.animation="shake .35s ease"; setTimeout(()=>card.style.animation="",400); }
+  }
+}
+
+function answerInput(){
+  if(locked || !paper) return;
+  const item=paper.questions[qi];
+  const input=document.getElementById("fillAns");
+  const raw=input?input.value:"";
+  if(!norm(raw)){ document.getElementById("why").textContent="Please enter an answer first."; return; }
+  const ok=matchInput(raw, item);
+  if(ok){
+    if(input) input.disabled=true;
+    document.querySelectorAll("#opts .go").forEach(b=>b.disabled=true);
+    afterCorrect(raw.trim());
+  } else {
+    firstTry=false;
+    document.getElementById("why").textContent="Not quite — try again. Hint: "+(item.hint||"Check key terms from the textbook")+" (No points for this one.)";
+    const card=document.getElementById("card");
+    if(card){ card.style.animation="shake .35s ease"; setTimeout(()=>card.style.animation="",400); }
+    if(input){ input.select(); }
+  }
+}
+
+function goNext(){
+  if(qi+1 >= paper.questions.length){ settle(false); return; }
+  qi++; showQ();
+}
+
+function analyze(logArr){
+  const bySec={};
+  logArr.forEach(e=>{
+    const k=e.sec||"Other";
+    if(!bySec[k]) bySec[k]={ok:0,n:0};
+    bySec[k].n++; if(e.ok) bySec[k].ok++;
+  });
+  const rows=Object.keys(bySec).map(k=>{
+    const r=bySec[k]; const pct=r.n?Math.round(r.ok/r.n*100):0;
+    return {sec:k, pct, ok:r.ok, n:r.n};
+  }).sort((a,b)=>b.pct-a.pct);
+  const strong=rows.filter(r=>r.pct>=70).slice(0,3);
+  const weak=rows.filter(r=>r.pct<70).sort((a,b)=>a.pct-b.pct).slice(0,3);
+  const wrongs=logArr.filter(e=>!e.ok);
+  return {strong, weak, wrongs, rows};
+}
+
+function settle(early){
+  stopTimer();
+  elapsedMs = Date.now()-startAt;
+  locked=true;
+  document.getElementById("btnSettle").style.display="none";
+  // fill unanswered if early
+  if(early){
+    for(let i=log.length;i<paper.questions.length;i++){
+      const qq=paper.questions[i];
+      log.push({no:i+1, sec:qq.sec||"", kind:qq.kind, q:qq.q, ch:qq._ch||"", lv:qq._lv||"", chTitle:qq._chTitle||"",
+        ok:false, ptsGot:0, ptsMax:1, correct:correctText(qq), userAns:"", firstTry:false, skipped:true});
+    }
+  }
+  const pct = totalPts ? Math.round(score/totalPts*100) : 0;
+  const correctN = log.filter(e=>e.ok).length;
+  const totalN = log.length;
+  document.getElementById("ptitle").textContent=paper.name+" · Results";
+  document.getElementById("where").textContent="Time "+fmtTime(elapsedMs)+(early?" · Finished early":" · Completed");
+  document.getElementById("scoreHint").textContent="Scroll down for analysis and correct answers";
+  document.getElementById("progFill").style.width="100%";
+
+  let encourage;
+  if(pct>=90) encourage="🌟 Excellent! Your water-resource ideas are solid!";
+  else if(pct>=75) encourage="👏 Great job! Keep it up — you are doing well!";
+  else if(pct>=60) encourage="💪 Solid pass — practise weak topics to get even steadier!";
+  else if(pct>=40) encourage="🌈 You have a base — review mistakes and chapter key points to improve!";
+  else encourage="🌱 Don't give up — revisit the chapter highlights, then try again!";
+
+  const A=analyze(log);
+  let html="";
+  if(early) html+='<div class="report-banner">⏹ Finished early — unanswered questions score 0.</div>';
+  html+='<div class="report-sum"><strong>Score '+score+' / '+totalPts+'</strong> ('+pct+'%) · First-try correct '+correctN+' / '+totalN+' · Time '+fmtTime(elapsedMs)+'</div>';
+  html+='<div class="report-encourage">'+encourage+'</div>';
+
+  html+='<div class="analysis"><strong>📊 Learning analysis</strong><br>';
+  if(A.strong.length){
+    html+='Strengths: '+A.strong.map(r=>esc(r.sec)+' ('+r.pct+'%)').join(', ')+'<br>';
+  } else html+='Strengths: no topic at 70%+ yet — keep going!<br>';
+  if(A.weak.length){
+    html+='Needs review: '+A.weak.map(r=>esc(r.sec)+' ('+r.pct+'%)').join(', ')+'<br>';
+  } else html+='Needs review: topics look fairly even — keep it up!<br>';
+  if(A.wrongs.length){
+    html+='Mistakes: '+A.wrongs.length+' question(s) missed on first try — see review below.';
+  } else html+='Mistakes: all correct on first try — excellent!';
+  html+='</div>';
+
+  html+='<p class="report-note">Correct answers below, compared with yours (✓ = scored on first try).</p>';
+  html+='<div><strong>📖 Question review</strong></div>';
+  log.forEach(e=>{
+    const tag = e.ok ? "ok" : "ng";
+    html+='<div class="report-item '+tag+'"><strong>Q'+e.no+'</strong>';
+    if(e.ch) html+=' [Ch '+e.ch+(e.lv?(' L'+e.lv):'')+']';
+    if(e.sec) html+=' '+esc(e.sec);
+    html+='<br>'+esc((e.q||"").length>60?(e.q.slice(0,60)+"…"):(e.q||""));
+    html+='<br>Correct: <strong>'+esc(e.correct||"—")+'</strong>';
+    if(e.skipped) html+='　Your answer: (skipped)';
+    else if(!e.ok) html+='　Your answer: '+esc(e.userAns||"(fixed after retries / not recorded)");
+    else html+='　Your answer: '+esc(e.userAns||"✓");
+    html+='　'+(e.ok?"✓ scored":"✗ 0 pts");
+    html+='</div>';
+  });
+
+  document.getElementById("q").innerHTML=html;
+  document.getElementById("why").textContent="";
+  const box=document.getElementById("opts"); box.innerHTML="";
+  const nxt=document.getElementById("next"); nxt.style.display="none"; nxt.onclick=null;
+  if(pct>=75) celebrate();
+  const card=document.getElementById("card"); if(card) card.scrollTop=0;
+
+  function add(label, fn){
+    const b=document.createElement("button");
+    b.className="opt"; b.type="button"; b.textContent=label; b.onclick=fn;
+    box.appendChild(b);
+  }
+  add("Try again", ()=>{
+    closePanel();
+    if(paper && paper.mode==="combo") startCombo();
+    else if(curCh){
+      const idx=CHAPTERS.indexOf(curCh);
+      renderLevels(curCh, idx>=0?idx:0);
+    } else renderHome();
+  });
+  add("Back to home", ()=>{ closePanel(); renderHome(); });
+
+  try{
+    P5Platform.report({
+      gameId: GAME_ID, game:"Geography Water Quiz", mode: paper.mode||"level",
+      lesson: paper.name||"", detail: paper.unit||"",
+      score: score, maxScore: totalPts, pct: pct, ms: elapsedMs,
+      player: getNick()||undefined
+    });
+  }catch(e){}
+
+  // save last result locally
+  try{
+    const st=loadStore();
+    st.last={ name:paper.name, score, totalPts, pct, ms:elapsedMs, at:Date.now() };
+    st.history=st.history||[];
+    st.history.unshift(st.last);
+    st.history=st.history.slice(0,30);
+    saveStore(st);
+  }catch(e){}
+}
+
+document.getElementById("btnBack").onclick=()=>{
+  if(!paper){ closePanel(); return; }
+  if(confirm("Leaving will lose this attempt. Go back?")){ closePanel(); if(curCh){ const idx=CHAPTERS.indexOf(curCh); renderLevels(curCh, idx>=0?idx:0);} else renderHome(); }
+};
+document.getElementById("btnSettle").onclick=()=>{
+  if(!paper) return;
+  if(confirm("Finish early? Unanswered questions score 0.")) settle(true);
+};
+
+
+const GATE_KEY = GAME_ID + "_session_ok";
+const GATE_CODE = String.fromCharCode(49,54,56,49); /* compared in JS only */
+function gateUnlocked(){
+  try{ return sessionStorage.getItem(GATE_KEY)==="1"; }catch(e){ return false; }
+}
+function markGateUnlocked(){
+  try{ sessionStorage.setItem(GATE_KEY,"1"); }catch(e){}
+}
+function hideGate(){
+  const g=document.getElementById("gate");
+  if(g) g.classList.add("pass-ok");
+}
+function showGateError(msg){
+  const el=document.getElementById("gateErr");
+  if(el) el.textContent=msg||"";
+}
+function tryGateUnlock(){
+  const inp=document.getElementById("gatePass");
+  const raw=inp?String(inp.value||""):"";
+  if(raw===GATE_CODE){
+    markGateUnlocked();
+    hideGate();
+    showGateError("");
+    renderHome();
+  } else {
+    showGateError("Wrong password.");
+    if(inp){ inp.value=""; inp.focus(); }
+  }
+}
+function boot(){
+  if(gateUnlocked()){
+    hideGate();
+    renderHome();
+    return;
+  }
+  const enter=document.getElementById("gateEnter");
+  const inp=document.getElementById("gatePass");
+  if(enter) enter.onclick=tryGateUnlock;
+  if(inp){
+    inp.addEventListener("keydown", e=>{ if(e.key==="Enter"){ e.preventDefault(); tryGateUnlock(); }});
+    setTimeout(()=>inp.focus(), 50);
+  }
+}
+boot();
+</script>
+</body>
+</html>
